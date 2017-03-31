@@ -23,11 +23,21 @@ namespace Level1
         {
             var distance = srcLoc.distanceTo(destLoc);
 
+            System.Console.WriteLine($"TravelTime: calculated distance: {distance}");
+
             var travelTime = distance / train.Speed;
+
+            System.Console.WriteLine($"TravelTime: calculated traveltime without stop: {travelTime}");
 
             var totalTime = travelTime + srcLoc.StopSeconds;
 
-            return (int)Math.Ceiling(totalTime);
+            System.Console.WriteLine($"TravelTime: calculated total travel time with stop: {totalTime}");
+
+            int result = (int)Math.Ceiling(totalTime);
+
+            System.Console.WriteLine($"TravelTime: rounded total time: {totalTime}");
+
+            return result;
         }
     }
 }
