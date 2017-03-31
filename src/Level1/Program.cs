@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using System.IO;
 
 namespace Level1
@@ -13,23 +10,22 @@ namespace Level1
         public static void TaskRunner(string path, string outFile)
         {
             var task = new TaskParser(path);
-            var time = new TimeCalculator().calcTime(task.From, task.To);
+            var time = (int)Math.Round(task.TravelLocations.Sum(x => x.Duration));
             File.AppendAllText(outFile, $"{time}{Environment.NewLine}");
             Console.WriteLine($"{time}");
         }
 
         static void Main(string[] args)
         {
-            string levelpath = @"E:\work\CCC17\src\Level1\files\level1\";
-            string outFile = $"{levelpath}level1_results.txt";
+            string levelpath = @"E:\work\CCC17\level2\";
+            string outFile = $"{levelpath}level2_results.txt";
         
-
             File.WriteAllText(outFile, "");
             int NumTasks = 4;
             for (int i = 1; i <= NumTasks; i++)
             {
                 Console.WriteLine("========================  " + i + " ======================== ");
-                TaskRunner($"{levelpath}level1-{i}.txt", outFile);
+                TaskRunner($"{levelpath}level2-{i}.txt", outFile);
             }
         }
     }

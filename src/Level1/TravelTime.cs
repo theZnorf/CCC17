@@ -19,13 +19,13 @@ namespace Level1
             vehicle = _vehicle;
         }
 
-        public int calcTravelTime()
+        public double calcTravelTime()
         {
             var distance = srcLoc.distanceTo(destLoc);
 
             var travelTime = distance / vehicle.Speed;
 
-            return (int)Math.Round(travelTime);
+            return travelTime;
         }
     }
 }

@@ -42,13 +42,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HyperloopSegment.cs" />
+    <Compile Include="Segment.cs" />
     <Compile Include="TaskParser.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TimeCalculator.cs" />
     <Compile Include="Train.cs" />
     <Compile Include="TravelTime.cs" />
+    <Compile Include="VehicleSegment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

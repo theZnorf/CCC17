@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Level1
 {
-    class Vehicle
+    public class Vehicle
     {
         public double Speed { get; private set; }
 
