@@ -10,6 +10,8 @@ namespace Level1
     {
         static void Main(string[] args)
         {
+            var task = new TaskParser(@"E:\work\CCC17\src\Level1\files\level1\level1-eg.txt");
+
         }
     }
 }
