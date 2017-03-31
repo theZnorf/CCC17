@@ -34,12 +34,10 @@ namespace Level1
 
         static void Main(string[] args)
         {
-            string levelpath = @"C:\work\CCC17\level5\";
+            string levelpath = @"E:\work\CCC17\level5\";
             string outFile = $"{levelpath}level5_results.txt";
 
             RunExample($"{levelpath}level5-eg.txt", outFile);
-
-            return;
 
             File.WriteAllText(outFile, "");
             int NumTasks = 4;

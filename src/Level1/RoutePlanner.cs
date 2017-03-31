@@ -32,18 +32,25 @@ namespace Level1
             var fromStation = getNearest(From, locList);
             var toStation = getNearest(To, locList);
 
-            var firstHyperSeg = Segments.First(x => x.From == fromStation);
-            var lastHyperSeg = Segments.First(x => x.To == toStation);
+            int begin = locList.IndexOf(fromStation);
+            int end = locList.IndexOf(toStation);
 
-            List<Segment> drivenSegments = new List<Segment>();
+            if (begin > end)
+            {
+                locList.Reverse();
+            }
 
-            drivenSegments.Add(new VehicleSegment(From, fromStation));
+            var locations = locList.SkipWhile(x => x != fromStation).TakeWhile(x => x != toStation);
 
-            drivenSegments.Add(firstHyperSeg);
-            Segments.Skip(Segments.IndexOf(firstHyperSeg));
-            drivenSegments.AddRange(Segments.TakeWhile(x => x != lastHyperSeg));
-            drivenSegments.Add(lastHyperSeg);
-
+            var drivenSegments = new List<Segment>();
+            var prev = locations.First();
+            drivenSegments.Add(new VehicleSegment(From, prev));
+            foreach (var seg in locations.Skip(1))
+            {
+                drivenSegments.Add(new HyperloopSegment(prev, seg));
+                prev = seg;
+            }
+            drivenSegments.Add(new HyperloopSegment(prev, toStation));
             drivenSegments.Add(new VehicleSegment(toStation, To));
 
             var totalTime = Math.Round(drivenSegments.Sum(x => x.Duration));
