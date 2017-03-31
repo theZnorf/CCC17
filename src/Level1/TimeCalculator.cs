@@ -8,11 +8,13 @@ namespace Level1
 {
     class TimeCalculator
     {
-        private Train train;
+        private Vehicle train;
+        private Vehicle car;
 
         public TimeCalculator()
         {
-            train = new Train();
+            train = new Vehicle(250);
+            car = new Vehicle(200);
         }
 
         public int calcTime(Location srcLoc, Location destLoc)

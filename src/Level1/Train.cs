@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Level1
 {
-    class Train
+    class Vehicle
     {
         public double Speed { get; private set; }
 
-        public Train()
+        public Vehicle(double speed)
         {
-            Speed = 250;
+            Speed = speed;
         }
     }
 }

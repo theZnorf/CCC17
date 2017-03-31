@@ -10,24 +10,22 @@ namespace Level1
     {
         private Location srcLoc;
         private Location destLoc;
-        private Train train;
+        private Vehicle vehicle;
 
-        public TravelTime(Train _train, Location _srcLoc, Location _destLoc)
+        public TravelTime(Vehicle _vehicle, Location _srcLoc, Location _destLoc)
         {
             srcLoc = _srcLoc;
             destLoc = _destLoc;
-            train = _train;
+            vehicle = _vehicle;
         }
 
         public int calcTravelTime()
         {
             var distance = srcLoc.distanceTo(destLoc);
 
-            var travelTime = distance / train.Speed;
+            var travelTime = distance / vehicle.Speed;
 
-            var totalTime = travelTime + srcLoc.StopSeconds;
-
-            return (int)Math.Round(totalTime);
+            return (int)Math.Round(travelTime);
         }
     }
 }
