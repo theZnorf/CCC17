@@ -17,6 +17,7 @@ namespace Level1
 
         public int calcTime(Location srcLoc, Location destLoc)
         {
+            Console.WriteLine($"TimeCalculator: calc time between {srcLoc} and {destLoc}");
             var time = new TravelTime(train, srcLoc, destLoc);
             return time.calcTravelTime();
         }
