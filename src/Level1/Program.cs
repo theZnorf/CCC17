@@ -20,12 +20,16 @@ namespace Level1
 
         static void Main(string[] args)
         {
-            string outFile = "E:\\work\\CCC17\\src\\Level1\\files\\level1\\level1_results.txt";
+            string levelpath = @"E:\work\CCC17\src\Level1\files\level1\";
+            string outFile = $"{levelpath}level1_results.txt";
+        
+
             File.WriteAllText(outFile, "");
             int NumTasks = 4;
             for (int i = 1; i <= NumTasks; i++)
             {
-                TaskRunner($"E:\\work\\CCC17\\src\\Level1\\files\\level1\\level1-{i}.txt", outFile);
+                Console.WriteLine("========================  " + i + " ======================== ");
+                TaskRunner($"{levelpath}level1-{i}.txt", outFile);
             }
         }
     }

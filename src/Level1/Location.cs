@@ -26,7 +26,14 @@ namespace Level1
         {
             double xDist = Math.Abs(LocX - other.LocX);
             double yDist = Math.Abs(LocY - other.LocY);
-            return Math.Sqrt(xDist * xDist + yDist * yDist);
+            var dist = Math.Sqrt(xDist * xDist + yDist * yDist);
+            Console.WriteLine($"Distance between {Name} and {other.Name} is {dist}");
+            return dist;
+        }
+
+        public override string ToString()
+        {
+            return $"{Name} ({LocX}, {LocY})";
         }
     }
 }

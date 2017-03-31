@@ -27,7 +27,7 @@ namespace Level1
 
             var totalTime = travelTime + srcLoc.StopSeconds;
 
-            return (int)Math.Ceiling(totalTime);
+            return (int)Math.Round(totalTime);
         }
     }
 }

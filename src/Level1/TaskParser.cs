@@ -27,6 +27,13 @@ namespace Level1
             var fromTo = lines[numLocs + 1].Split(' ');
             From = Locations.First(x => x.Name.Equals(fromTo[0]));
             To = Locations.First(x => x.Name.Equals(fromTo[1]));
+
+            Console.WriteLine($"{numLocs} Locations parsed:");
+            foreach (var loc in Locations)
+            {
+                Console.WriteLine(loc.ToString());
+            }
+            Console.WriteLine($"Searching Time from {From.Name} to {To.Name}");
         }
     }
 }
