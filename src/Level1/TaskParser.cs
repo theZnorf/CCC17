@@ -10,49 +10,54 @@ namespace Level1
 
     public class Journey
     {
-        public Journey(Location from, Location to, int carDuration)
+        public Journey(Location from, Location to)
         {
             From = from;
             To = to;
-            CarDuration = carDuration;
         }
 
         public Location From { get; set; }
         public Location To { get; set; }
-        public int CarDuration { get; set; }
     }
 
     public class TaskParser
     {
         public List<Location> Locations { get; set; }
 
-        public List<Journey> Journeys { get; set; }
-
-        public int MinImprovements { get; set; }
+        public Journey Journey { get; set; }
+        public List<Segment> Segments { get; set; }
 
         public TaskParser(string path)
         {
             int line = 0;
             var lines = File.ReadAllLines(path);
             Locations = new List<Location>();
-            Journeys = new List<Journey>();
+            Segments = new List<Segment>();
             int numLocs = int.Parse(lines[line++]);
             for (; line <= numLocs; line++)
             {
                 Locations.Add(new Location(lines[line]));
             }
 
-            Console.WriteLine("Parsing journeys:");
-            int numJourneys = int.Parse(lines[line++]);
-            for (int i = 0; i < numJourneys; i++)
-            {
-                var journeyString = lines[line++];
-                var parts = journeyString.Split(' ');
-                var s = parts[0]; var e = parts[1]; var cd = parts[2];
-                Journeys.Add(new Journey(Locations.First(x => x.Name.Equals(s)), Locations.First(x => x.Name.Equals(e)), int.Parse(cd)));
-            }
+            // Console.WriteLine("Parsing journeys:");
+            // int numJourneys = int.Parse(lines[line++]);
+            // for (int i = 0; i < numJourneys; i++)
+            // {
+            var journeyString = lines[line++];
+            var parts = journeyString.Split(' ');
+            var s = parts[0]; var e = parts[1]; // var cd = parts[2];
+            Journey = new Journey(Locations.First(x => x.Name.Equals(s)), Locations.First(x => x.Name.Equals(e)));
+            // }
 
-            MinImprovements = int.Parse(lines[line]);
+            var hyperloopParts = lines[line].Split(' ');
+            var numHyperLoopStations = int.Parse(hyperloopParts[0]);
+            var from = Locations.First(x => x.Name.Equals(hyperloopParts[1]));
+            for (int i = 2; i <= numHyperLoopStations; i++)
+            {
+                var to = Locations.First(x => x.Name.Equals(hyperloopParts[i]));
+                Segments.Add(new HyperloopSegment(from, to));
+                from = to;
+            }
 
             // var hyperloopSegment = lines[line];
             // var segPart = hyperloopSegment.Split(' ');
