@@ -28,7 +28,7 @@ namespace Level1
 
         public List<Journey> Journeys { get; set; }
 
-        public Segment HyperloopSegment { get; set; }
+        public int MinImprovements { get; set; }
 
         public TaskParser(string path)
         {
@@ -52,9 +52,11 @@ namespace Level1
                 Journeys.Add(new Journey(Locations.First(x => x.Name.Equals(s)), Locations.First(x => x.Name.Equals(e)), int.Parse(cd)));
             }
 
-            var hyperloopSegment = lines[line];
-            var segPart = hyperloopSegment.Split(' ');
-            HyperloopSegment = new HyperloopSegment(Locations.First(x => x.Name.Equals(segPart[0])), Locations.First(x => x.Name.Equals(segPart[1])));
+            MinImprovements = int.Parse(lines[line]);
+
+            // var hyperloopSegment = lines[line];
+            // var segPart = hyperloopSegment.Split(' ');
+            // HyperloopSegment = new HyperloopSegment(Locations.First(x => x.Name.Equals(segPart[0])), Locations.First(x => x.Name.Equals(segPart[1])));
 
             Console.WriteLine($"{numLocs} Locations parsed:");
             foreach (var loc in Locations)
