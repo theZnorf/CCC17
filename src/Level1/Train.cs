@@ -8,12 +8,11 @@ namespace Level1
 {
     class Train
     {
-        public decimal Speed { get { return Speed; }}
-        private decimal speed;
+        public double Speed { get; private set; }
 
         public Train()
         {
-            speed = 250;
+            Speed = 250;
         }
     }
 }

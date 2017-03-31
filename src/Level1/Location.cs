@@ -8,6 +8,8 @@ namespace Level1
 
         public Location(string v)
         {
+            StopSeconds = 200;
+
             var parts = v.Split(' ');
             Name = parts[0];
             LocX = int.Parse(parts[1]);
@@ -18,7 +20,7 @@ namespace Level1
         public int LocX { get; set; }
         public int LocY { get; set; }
 
-        public int StopSeconds { get; set; }
+        public int StopSeconds { get; private set; }
 
         public double distanceTo(Location other)
         {

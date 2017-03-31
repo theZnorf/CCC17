@@ -25,9 +25,9 @@ namespace Level1
 
             var travelTime = distance / train.Speed;
 
-            var totalTime = travelTime + srcLoc.StopTime;
+            var totalTime = travelTime + srcLoc.StopSeconds;
 
-            return totalTime;
+            return (int)Math.Ceiling(totalTime);
         }
     }
 }
