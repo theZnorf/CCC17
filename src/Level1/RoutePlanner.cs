@@ -36,7 +36,7 @@ namespace Level1
 
             var totalTime = Math.Round(segments.Sum(x => x.Duration));
 
-            Console.WriteLine($"Total time: {totalTime}");
+            //Console.WriteLine($"Total time: {totalTime}");
 
             return (int)totalTime;
         }

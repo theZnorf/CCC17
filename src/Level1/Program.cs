@@ -10,44 +10,36 @@ namespace Level1
         public static void TaskRunner(string path, string outFile)
         {
             var task = new TaskParser(path);
-            // var time = (int)Math.Round(task.TravelLocations.Sum(x => x.Duration));
-            // File.AppendAllText(outFile, $"{time}{Environment.NewLine}");
-            // Console.WriteLine($"{time}");
 
-            int count = 0;
-            foreach (var jour in task.Journeys)
+            foreach (var start in task.Locations)
             {
-                var planner = new RoutePlanner(task.HyperloopSegment, jour.From, jour.To);
-
-                var travelTime = planner.calcJourneyTime();
-
-                if (travelTime < jour.CarDuration)
+                foreach (var end in task.Locations.Where(x => x != start))
                 {
-                    Console.WriteLine($"Possible improvement detected for : {jour.From} - {jour.To}");
-                    Console.WriteLine($" {jour.CarDuration} vs {travelTime}");
-
-                    count++;
+                    var hyper = new HyperloopSegment(start, end);
+                    var count = new ImprovementDetector(task.Journeys, hyper).calcNumberOfImprovements();
+                    if (count >= task.MinImprovements)
+                    {
+                        Console.WriteLine($"good hyperloop: {hyper.From} - {hyper.To}");
+                        File.AppendAllText(outFile, $"{hyper.From.Name} {hyper.To.Name}" + Environment.NewLine);
+                        return;
+                    }
                 }
             }
-
-            Console.WriteLine($"Result: {count} improvements detected");
-
-            File.AppendAllText(outFile, count.ToString() + Environment.NewLine);
         }
 
         static void Main(string[] args)
         {
-            string levelpath = @"C:\work\CCC17\level3\";
-            string outFile = $"{levelpath}level3_results.txt";
+            string levelpath = @"C:\work\CCC17\level4\";
+            string outFile = $"{levelpath}level4_results.txt";
 
-            //RunExample($"{levelpath}level3-eg.txt", outFile);
+            RunExample($"{levelpath}level4-eg.txt", outFile);
 
             File.WriteAllText(outFile, "");
             int NumTasks = 4;
             for (int i = 1; i <= NumTasks; i++)
             {
                 Console.WriteLine("========================  " + i + " ======================== ");
-                TaskRunner($"{levelpath}level3-{i}.txt", outFile);
+                TaskRunner($"{levelpath}level4-{i}.txt", outFile);
             }
         }
 

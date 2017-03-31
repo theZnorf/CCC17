@@ -57,12 +57,6 @@ namespace Level1
             // var hyperloopSegment = lines[line];
             // var segPart = hyperloopSegment.Split(' ');
             // HyperloopSegment = new HyperloopSegment(Locations.First(x => x.Name.Equals(segPart[0])), Locations.First(x => x.Name.Equals(segPart[1])));
-
-            Console.WriteLine($"{numLocs} Locations parsed:");
-            foreach (var loc in Locations)
-            {
-                Console.WriteLine(loc.ToString());
-            }
         }
     }
 }
