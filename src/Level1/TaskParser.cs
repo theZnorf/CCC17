@@ -8,50 +8,54 @@ using System.Threading.Tasks;
 namespace Level1
 {
 
+    public class Journey
+    {
+        public Journey(Location from, Location to, int carDuration)
+        {
+            From = from;
+            To = to;
+            CarDuration = carDuration;
+        }
+
+        public Location From { get; set; }
+        public Location To { get; set; }
+        public int CarDuration { get; set; }
+    }
+
     public class TaskParser
     {
         public List<Location> Locations { get; set; }
 
-        public List<Segment> TravelLocations { get; set; }
+        public List<Journey> Journeys { get; set; }
 
         public TaskParser(string path)
         {
+            int line = 0;
             var lines = File.ReadAllLines(path);
             Locations = new List<Location>();
-            TravelLocations = new List<Segment>();
-            int numLocs = int.Parse(lines[0]);
-            for (int i = 1; i <= numLocs; i++)
+            Journeys = new List<Journey>();
+            int numLocs = int.Parse(lines[line++]);
+            for (; line <= numLocs; line++)
             {
-                Locations.Add(new Location(lines[i]));
+                Locations.Add(new Location(lines[line]));
             }
 
-            var fromToCar = lines[numLocs + 1].Split(' ');
-            var journeyStart = Locations.First(x => x.Name.Equals(fromToCar[0]));
-            var journeyEnd = Locations.First(x => x.Name.Equals(fromToCar[1]));
-            
-            var fromToHyperloop = lines[numLocs + 2].Split(' ');
-            var nextStations = Locations.Where(x => x.Name.Equals(fromToHyperloop[0]) || x.Name.Equals(fromToHyperloop[1])).ToArray();
-            if (nextStations[0].distanceTo(journeyStart) < nextStations[1].distanceTo(journeyStart))
+            Console.WriteLine("Parsing journeys:");
+            int numJourneys = int.Parse(lines[line++]);
+            for (int i = 0; i < numJourneys; i++)
             {
-                TravelLocations.Add(new VehicleSegment(journeyStart, nextStations[0]));
-                TravelLocations.Add(new HyperloopSegment(nextStations[0], nextStations[1]));
-                TravelLocations.Add(new VehicleSegment(nextStations[1], journeyEnd));
+                var journeyString = lines[line++];
+                var parts = journeyString.Split(' ');
+                var s = parts[0]; var e = parts[1]; var cd = parts[2];
+                Journeys.Add(new Journey(Locations.First(x => x.Name.Equals(s)), Locations.First(x => x.Name.Equals(e)), int.Parse(cd)));
             }
-            else
-            {
-                TravelLocations.Add(new VehicleSegment(journeyStart, nextStations[1]));
-                TravelLocations.Add(new HyperloopSegment(nextStations[1], nextStations[0]));
-                TravelLocations.Add(new VehicleSegment(nextStations[0], journeyEnd));
-            }
-            
+
+            var hyperloopSegment = lines[line];
+
             Console.WriteLine($"{numLocs} Locations parsed:");
             foreach (var loc in Locations)
             {
                 Console.WriteLine(loc.ToString());
-            }
-            foreach (var seg in TravelLocations)
-            {
-                Console.WriteLine(seg.ToString());
             }
         }
     }
