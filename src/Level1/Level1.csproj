@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="HyperloopSegment.cs" />
     <Compile Include="ImprovementDetector.cs" />
+    <Compile Include="RouteGenerator.cs" />
     <Compile Include="RoutePlanner.cs" />
     <Compile Include="Segment.cs" />
     <Compile Include="TaskParser.cs" />
