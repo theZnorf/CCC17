@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 
 namespace Level1
 {
-    class Program
+    class Train
     {
-        static void Main(string[] args)
+        public decimal Speed { get { return Speed; }}
+        private decimal speed;
+
+        public Train()
         {
+            speed = 250;
         }
     }
 }
