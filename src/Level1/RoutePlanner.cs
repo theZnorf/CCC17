@@ -8,13 +8,13 @@ namespace Level1
 {
     public class RoutePlanner
     {
-        private Segment enclosed;
+        private List<Segment> Segments;
         private Location From;
         private Location To;
 
-        public RoutePlanner(Segment enclodedSeg, Location from, Location to)
+        public RoutePlanner(List<Segment> segments, Location from, Location to)
         {
-            enclosed = enclodedSeg;
+            Segments = new List<Segment>(segments);
             From = from;
             To = to;
         }
@@ -22,21 +22,33 @@ namespace Level1
         public double calcJourneyTime()
         {
             List<Location> locList = new List<Location>();
-            locList.Add(enclosed.From);
-            locList.Add(enclosed.To);
+
+            foreach (var seg in Segments)
+            {
+                locList.Add(seg.From);
+            }
+            locList.Add(Segments.Last().To);
 
             var fromStation = getNearest(From, locList);
             var toStation = getNearest(To, locList);
 
-            List<Segment> segments = new List<Segment>();
+            var firstHyperSeg = Segments.First(x => x.From == fromStation);
+            var lastHyperSeg = Segments.First(x => x.To == toStation);
 
-            segments.Add(new VehicleSegment(From, fromStation));
-            segments.Add(enclosed);
-            segments.Add(new VehicleSegment(toStation, To));
+            List<Segment> drivenSegments = new List<Segment>();
 
-            var totalTime = Math.Round(segments.Sum(x => x.Duration));
+            drivenSegments.Add(new VehicleSegment(From, fromStation));
 
-            //Console.WriteLine($"Total time: {totalTime}");
+            drivenSegments.Add(firstHyperSeg);
+            Segments.Skip(Segments.IndexOf(firstHyperSeg));
+            drivenSegments.AddRange(Segments.TakeWhile(x => x != lastHyperSeg));
+            drivenSegments.Add(lastHyperSeg);
+
+            drivenSegments.Add(new VehicleSegment(toStation, To));
+
+            var totalTime = Math.Round(drivenSegments.Sum(x => x.Duration));
+
+            Console.WriteLine($"Total time: {totalTime}");
 
             return (int)totalTime;
         }
